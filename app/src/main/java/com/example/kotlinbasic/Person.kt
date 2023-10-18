@@ -1,6 +1,7 @@
 package com.example.kotlinbasic
 
-open class Person(var name:String, var age:Int) {
+// todo 1 (next Player.kt)
+open class Person(var name:String, var age:Int) { // primary constrator
 
     init {
         println("The person name: $name")
