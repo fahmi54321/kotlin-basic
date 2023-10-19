@@ -5,7 +5,8 @@ fun main(){
     // todo 3 (finish)
 
     var teacher = Teacher()
-    teacher.name = "Aziz"
-    println("teacher name : ${teacher.name}")
+    teacher.age = 20
+    teacher.displayAge()
+    teacher.displayGreetings()
 
 }

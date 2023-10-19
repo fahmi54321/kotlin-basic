@@ -1,14 +1,10 @@
 package com.example.kotlinbasic
 
 // todo 2 (next HelloKotlin.kt)
-class Teacher: Person {
-
-    constructor(): super(){
-
-        println("teacher hobi : $hobi")
+class Teacher: Person() {
+    override fun displayGreetings() {
+        println("hello")
     }
 
-    override var name: String = "Abdul"
 
-    override var hobi: String = "Ngegame"
 }
