@@ -2,7 +2,10 @@ package com.example.kotlinbasic
 
 fun main(){
 
-    // todo 4 (finish)
-    var p1 = Player("Fahmi",24)
+    // todo 3 (finish)
+
+    var teacher = Teacher()
+    teacher.name = "Aziz"
+    println("teacher name : ${teacher.name}")
 
 }
