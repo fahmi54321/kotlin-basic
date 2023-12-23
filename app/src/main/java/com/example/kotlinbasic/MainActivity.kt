@@ -2,37 +2,77 @@ package com.example.kotlinbasic
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var btn1: Button
-    private lateinit var btn2: Button
-    private lateinit var fragmentHome: Fragment
-    private lateinit var fragmentProfile: Fragment
+    private lateinit var toogle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn1 = findViewById(R.id.btnDisplay1)
-        btn2 = findViewById(R.id.btnDisplay2)
-        fragmentHome = HomeFragment()
-        fragmentProfile = ProfileFragment()
+        drawerLayout = findViewById(R.id.drawer)
+        navView = findViewById(R.id.nav_view)
 
-        btn1.setOnClickListener {
-            var fragmentTrns: FragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTrns.replace(R.id.fl1,fragmentHome).commit()
+        toogle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            R.string.open,
+            R.string.close,
+        )
+
+        drawerLayout.addDrawerListener(toogle)
+        toogle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // functionality for the nav drawer items
+        navView.setNavigationItemSelectedListener {
+            it.isCheckable = true
+
+            when(it.itemId){
+                R.id.home -> {
+                    replaceFragment(HomeFragment(),it.title.toString())
+                }
+                R.id.message -> {
+                    replaceFragment(MessagesFragment(),it.title.toString())
+                }
+                R.id.settings -> {
+                    replaceFragment(SettingsFragment(),it.title.toString())
+                }
+
+                R.id.login -> {
+                    replaceFragment(SettingsFragment(),it.title.toString())
+                }
+            }
+
+            true
         }
+    }
 
-        btn2.setOnClickListener {
-            var fragmentTrns: FragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTrns.replace(R.id.fl2,fragmentProfile).commit()
+    private fun replaceFragment(fragment: Fragment, title: String){
+        val fragmentManager = supportFragmentManager
+        val fragTrans = fragmentManager.beginTransaction()
+        fragTrans.replace(R.id.frame_layout_1,fragment)
+        fragTrans.commit()
+
+        drawerLayout.closeDrawers()
+        setTitle(title)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toogle.onOptionsItemSelected(item)){
+            return true
         }
-
-
-
+        return super.onOptionsItemSelected(item)
     }
 }
