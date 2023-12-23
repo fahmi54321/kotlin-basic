@@ -2,23 +2,26 @@ package com.example.kotlinbasic
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var listView: ListView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var countryAdapter: CountryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        listView = findViewById(R.id.listView)
+        recyclerView = findViewById(R.id.recyclerView)
 
         countryAdapter = CountryAdapter(this,generateData())
 
-        listView.adapter = countryAdapter
-        countryAdapter.notifyDataSetChanged()
+        recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = countryAdapter
 
     }
 
