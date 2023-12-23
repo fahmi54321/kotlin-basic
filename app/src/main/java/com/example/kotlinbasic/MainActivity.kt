@@ -2,36 +2,37 @@ package com.example.kotlinbasic
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.ListView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.Button
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var countryAdapter: CountryAdapter
+    private lateinit var btn1: Button
+    private lateinit var btn2: Button
+    private lateinit var fragmentHome: Fragment
+    private lateinit var fragmentProfile: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById(R.id.recyclerView)
+        btn1 = findViewById(R.id.btnDisplay1)
+        btn2 = findViewById(R.id.btnDisplay2)
+        fragmentHome = HomeFragment()
+        fragmentProfile = ProfileFragment()
 
-        countryAdapter = CountryAdapter(this,generateData())
+        btn1.setOnClickListener {
+            var fragmentTrns: FragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTrns.replace(R.id.fl1,fragmentHome).commit()
+        }
 
-        recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        recyclerView.adapter = countryAdapter
+        btn2.setOnClickListener {
+            var fragmentTrns: FragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTrns.replace(R.id.fl2,fragmentProfile).commit()
+        }
 
-    }
 
-    private fun generateData(): ArrayList<Country> {
 
-        return arrayListOf(
-            Country("Indonesia", "2"),
-            Country("Malaysia", "2"),
-            Country("Thailand", "2"),
-            Country("Vietnam", "2"),
-        )
     }
 }
